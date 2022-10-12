@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
+  
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <title>任意のページタイトル</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>  
+  <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.2/aframe/build/aframe-ar.js"> </script>
+  <title>AR_Keycap</title>
   </head>
-  <body style="margin: 0; overflow: hidden">
-    <a-scene embedded arjs vr-mode-ui="enabled: false;">
-
-      <!-- 3DCGモデルを読み込む -->
+    
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs="debugUIEnabled:false; sourceType: webcam;"
+     vr-mode-ui="enabled: false;"
+     >
+      
       <a-assets>
-        <a-asset-item id="KeyLayer" src="./asset/KeyLayer.glb"></a-asset-item>
+        <a-asset-item id="KeyLayer" src="KeyLayer.glb" scale="0.5 0.5 0.5"></a-asset-item>
       </a-assets>
 
       <a-assets>
-        <a-asset-item id="KeyInf" src="./asset/KeyInf.glb"></a-asset-item>
+        <a-asset-item id="KeyInf" src="KeyInf.glb" scale="0.5 0.5 0.5"></a-asset-item>
       </a-assets>
-
-      <!-- pattern-KB.pattファイルを読み込む -->
-      <a-marker type="pattern" url="./asset/pattern-KB.patt">
-        <!-- 3Dモデル(KeyInf)を呼び出す -->
-        <a-entity gltf-model="#KeyInf"></a-entity>
+      
+     <!--マーカーの設定-->
+      <a-marker 
+        type="pattern"
+        preset="custom"
+        url="pattern-DL.patt"
+        raycaster="objects: .clickable"
+        mitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        >
+          <a-entity gltf-model="#KeyLayer" animation-mixer></a-entity>
       </a-marker>
-
-      <!-- pattern-KL.pattファイルを読み込む -->
-      <a-marker type="pattern" url="./asset/pattern-KL.patt">
-        <!-- 3Dモデル(KeyLayer)を呼び出す -->
-        <a-entity gltf-model="#KeyLayer"></a-entity>
+      
+     <!--マーカーの設定-->
+      <a-marker 
+        type="pattern"
+        preset="custom"
+        url="pattern-DB.patt"
+        raycaster="objects: .clickable"
+        mitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        >
+          <a-entity gltf-model="#KeyInf" animation-mixer></a-entity>
       </a-marker>
-
-      <!-- カメラを追加 -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
